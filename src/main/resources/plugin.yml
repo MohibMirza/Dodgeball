@@ -1,0 +1,4 @@
+name: Dodgeball
+version: ${project.version}
+main: com.kingfrozo.game.Main
+api-version: 1.17

@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Main-Class: 
+Class-Path: rxjava-3.0.12.jar snakeyaml-1.27.jar cache-api-1.0.0.jar jod
+ d-bean-5.1.6.jar jodd-core-5.1.6.jar redisson-3.16.1.jar slf4j-api-1.7.
+ 30.jar byte-buddy-1.11.0.jar reactor-core-3.4.4.jar jackson-core-2.12.1
+ .jar reactive-streams-1.0.3.jar jackson-databind-2.12.1.jar netty-codec
+ -4.1.66.Final.jar netty-buffer-4.1.66.Final.jar netty-common-4.1.66.Fin
+ al.jar jackson-annotations-2.12.1.jar netty-handler-4.1.66.Final.jar ne
+ tty-resolver-4.1.66.Final.jar netty-codec-dns-4.1.66.Final.jar netty-tr
+ ansport-4.1.66.Final.jar jackson-dataformat-yaml-2.12.1.jar jboss-marsh
+ alling-2.0.11.Final.jar netty-resolver-dns-4.1.66.Final.jar jboss-marsh
+ alling-river-2.0.11.Final.jar
+
