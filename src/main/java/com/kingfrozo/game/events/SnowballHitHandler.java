@@ -77,6 +77,8 @@ public class SnowballHitHandler implements Listener {
         return loc;
     }
 
+    // TODO: Create a Thread that counts down the players respawn
+    // TODO: If died three times, move them into spectate mode instead of teleport
     public void deathTeleport(Player player) {
         Location loc = player.getLocation();
         loc.setX(Config.respawnX);

@@ -1,5 +1,6 @@
 package com.kingfrozo.game;
 
+import com.kingfrozo.game.events.BorderBouncebackHandler;
 import com.kingfrozo.game.events.SnowballHitHandler;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,6 +18,7 @@ public final class Main extends JavaPlugin {
         random = new Random();
         // System.out.println("\n\n\n\n\n\ntest\n\n\n\n\n\n");
         getServer().getPluginManager().registerEvents(new SnowballHitHandler(), this);
+        getServer().getPluginManager().registerEvents(new BorderBouncebackHandler(), this);
     }
 
     @Override
