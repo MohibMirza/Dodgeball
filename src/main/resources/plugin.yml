@@ -2,3 +2,7 @@ name: Dodgeball
 version: ${project.version}
 main: com.kingfrozo.game.Main
 api-version: 1.17
+commands:
+  test:
+    description: just a tester function
+    aliases: []

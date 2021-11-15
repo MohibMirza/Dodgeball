@@ -1,4 +1,4 @@
-package com.kingfrozo.game;
+package com.kingfrozo.game.util;
 
 public class Config {
 

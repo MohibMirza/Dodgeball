@@ -1,6 +1,6 @@
 package com.kingfrozo.game.events;
 
-import com.kingfrozo.game.Config;
+import com.kingfrozo.game.util.Config;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -40,6 +40,7 @@ public class SnowballHitHandler implements Listener {
             Player damagee = (Player) event.getEntity();
 
             deathTeleport(damagee);
+
 
         }
     }

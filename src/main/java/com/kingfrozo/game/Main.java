@@ -1,7 +1,9 @@
 package com.kingfrozo.game;
 
+import com.kingfrozo.game.cmds.Test;
 import com.kingfrozo.game.events.BorderBouncebackHandler;
 import com.kingfrozo.game.events.SnowballHitHandler;
+import com.kingfrozo.game.events.SpectatorHandler;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Random;
@@ -19,6 +21,12 @@ public final class Main extends JavaPlugin {
         // System.out.println("\n\n\n\n\n\ntest\n\n\n\n\n\n");
         getServer().getPluginManager().registerEvents(new SnowballHitHandler(), this);
         getServer().getPluginManager().registerEvents(new BorderBouncebackHandler(), this);
+        getServer().getPluginManager().registerEvents(new SpectatorHandler(), this);
+        getServer().getPluginManager().registerEvents(new Game(), this);
+
+        getCommand("test").setExecutor(new Test());
+
+        Game game = new Game();
     }
 
     @Override
