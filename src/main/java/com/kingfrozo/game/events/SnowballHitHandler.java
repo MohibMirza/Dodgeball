@@ -1,5 +1,6 @@
 package com.kingfrozo.game.events;
 
+import com.kingfrozo.game.GamePlayer;
 import com.kingfrozo.game.util.Config;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -8,17 +9,24 @@ import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Map;
+
 public class SnowballHitHandler implements Listener {
 
     public static int count = 0;
+    private Map<String, GamePlayer> gamePlayers = GamePlayerJoinLeaveHandler.gamePlayers;
 
+    // TODO: add some code to respawn dodgeballs when players are hit
     @EventHandler(priority = EventPriority.LOW)
     public void onMiss(ProjectileHitEvent event) {
+        if(event.getHitBlock() == null) {
+            return;
+        }
+
         if(event.getEntity() instanceof Snowball
             && event.getEntity().getShooter() instanceof Player) {
 
@@ -29,23 +37,32 @@ public class SnowballHitHandler implements Listener {
         }
     }
 
-    // TODO: Give damager a point
-    // TODO: Kill damagee upon hit
+    // TODO: Spawn snowball in place of player
     @EventHandler(priority = EventPriority.HIGH)
-    public void onHit(EntityDamageByEntityEvent event) {
-        if(event.getDamager() instanceof Player
-                && event.getEntity() instanceof Player)  {
+    public void onHit(ProjectileHitEvent event) {
+        if(event.getHitEntity() instanceof Player && event.getEntity() instanceof Snowball
+                && event.getEntity().getShooter() instanceof Player)  {
 
-            Player damager = (Player) event.getDamager();
-            Player damagee = (Player) event.getEntity();
+            event.setCancelled(true);
 
-            deathTeleport(damagee);
+            Player damager = (Player) event.getEntity().getShooter();
+            Player damagee = (Player) event.getHitEntity();
+            GamePlayer gpDamager = gamePlayers.get(damager.getName());
+            GamePlayer gpDamagee = gamePlayers.get(damagee.getName());
 
+            gpDamager.addKill();
+            gpDamagee.removeLife();
+
+            System.out.println(damager.getName() + " kills: " + gpDamager.getKills() );
+            System.out.println(damagee.getName() + " dealths: " + gpDamagee.getLives());
+
+            dropSnowball(event.getHitEntity().getLocation());
 
         }
     }
 
-    public void dropSnowball(Location loc) {
+    public static void dropSnowball(Location loc) {
+        if(loc == null) { return; }
         ItemStack drop = new ItemStack(Material.SNOWBALL);
         drop.setAmount(1);
 
@@ -53,12 +70,12 @@ public class SnowballHitHandler implements Listener {
         meta.setCustomModelData(count);
         count++;
 
-        loc = boundCheck(loc);
+        boundCheck(loc);
 
         loc.getWorld().dropItemNaturally(loc, drop);
     }
 
-    public Location boundCheck(Location loc) {
+    public static void boundCheck(Location loc) {
         if(loc.getBlockY() != Config.arenaY){ // height manipulation
             loc.setY(Config.arenaY);
         }
@@ -74,13 +91,12 @@ public class SnowballHitHandler implements Listener {
         }else if(loc.getBlockX() > Config.x_top) {
             loc.setX(Config.x_top);
         }
-
-        return loc;
+        return;
     }
 
     // TODO: Create a Thread that counts down the players respawn
     // TODO: If died three times, move them into spectate mode instead of teleport
-    public void deathTeleport(Player player) {
+    public static void deathTeleport(Player player) {
         Location loc = player.getLocation();
         loc.setX(Config.respawnX);
         loc.setY(Config.respawnY);

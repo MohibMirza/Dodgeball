@@ -4,7 +4,6 @@ public class Config {
 
     // Define arena size here:
     // Must be rectangular and of odd length and width
-    // 
 
     public static int arenaX = 339; // width
     public static int arenaY = 142; // height

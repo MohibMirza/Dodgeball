@@ -1,0 +1,6 @@
+package com.kingfrozo.game.events;
+
+public class Handler {
+    // EVERY HANDLER EXTENDS THIS CLASS
+    // ADD SOME ABSTRACT FUNCTIONS SO WE CAN LOOP THRU ON START AND RESET TO INIT AND RESET ALL HANDLERS.
+}
