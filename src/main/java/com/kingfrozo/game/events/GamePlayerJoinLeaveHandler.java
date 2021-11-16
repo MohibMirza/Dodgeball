@@ -29,6 +29,7 @@ public class GamePlayerJoinLeaveHandler implements Listener {
     @EventHandler
     public void removePlayer(PlayerQuitEvent event){
         gamePlayers.remove(event.getPlayer().getName());
+
     }
 
 

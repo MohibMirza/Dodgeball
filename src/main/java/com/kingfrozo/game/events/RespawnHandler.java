@@ -26,6 +26,7 @@ public class RespawnHandler {
 
         Location loc = new Location(player.getWorld(), respawnX, Config.arenaY, respawnZ, pitch, yaw);
         player.teleport(loc);
+
     }
 
 }

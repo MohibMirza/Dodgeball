@@ -27,7 +27,6 @@ public final class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new GamePlayerJoinLeaveHandler(), this);
 
         getCommand("test").setExecutor(new Test());
-
         Game game = new Game();
     }
 

@@ -105,4 +105,5 @@ public class SnowballHitHandler implements Listener {
         player.teleport(loc);
     }
 
+
 }

@@ -17,9 +17,7 @@ public class SpectatorHandler implements Listener {
             if(gPlayer.getType() == GamePlayer.Type.SPECTATOR) {
                 event.setCancelled(true);
             }
-
         }
-
     }
 
     @EventHandler

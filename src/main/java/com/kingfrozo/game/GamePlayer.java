@@ -8,7 +8,6 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerRecipeDiscoverEvent;
 
 public class GamePlayer {
-
     public static enum Type {
         PLAYER,
         SPECTATOR // fly, no item pickup, cancel damage,
