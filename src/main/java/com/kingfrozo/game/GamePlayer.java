@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerRecipeDiscoverEvent;
 
 public class GamePlayer implements Listener {
@@ -43,8 +44,8 @@ public class GamePlayer implements Listener {
         return participated;
     }
 
-    public void setKills(int kills) {
-        this.kills = kills;
+    public void addKill() {
+        this.kills += 1;
     }
 
     public void setLives(int lives) {
