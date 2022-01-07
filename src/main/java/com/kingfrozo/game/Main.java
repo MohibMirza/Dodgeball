@@ -1,10 +1,7 @@
 package com.kingfrozo.game;
 
 import com.kingfrozo.game.cmds.Test;
-import com.kingfrozo.game.events.BorderBouncebackHandler;
-import com.kingfrozo.game.events.GamePlayerJoinLeaveHandler;
-import com.kingfrozo.game.events.SnowballHitHandler;
-import com.kingfrozo.game.events.SpectatorHandler;
+import com.kingfrozo.game.events.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Random;

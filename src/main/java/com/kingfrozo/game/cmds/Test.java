@@ -2,7 +2,8 @@ package com.kingfrozo.game.cmds;
 
 import com.kingfrozo.game.Game;
 import com.kingfrozo.game.GamePlayer;
-import com.kingfrozo.game.events.RespawnHandler;
+import com.kingfrozo.game.events.GamePlayerJoinLeaveHandler;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

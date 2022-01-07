@@ -40,6 +40,7 @@ public class SnowballHitHandler implements Listener {
     // TODO: Spawn snowball in place of player
     @EventHandler(priority = EventPriority.HIGH)
     public void onHit(ProjectileHitEvent event) {
+
         if(event.getHitEntity() instanceof Player && event.getEntity() instanceof Snowball
                 && event.getEntity().getShooter() instanceof Player)  {
 
@@ -49,6 +50,13 @@ public class SnowballHitHandler implements Listener {
             Player damagee = (Player) event.getHitEntity();
             GamePlayer gpDamager = gamePlayers.get(damager.getName());
             GamePlayer gpDamagee = gamePlayers.get(damagee.getName());
+            //snowball stops flying once it hits player
+            snowball.setVelocity(new Vector(0, 0, 0));
+
+            //friendly fire
+            if(gpDamager.getTeam() == gpDamagee.getTeam()) { return; }
+            if(damagee.getGameMode() != GameMode.SURVIVAL || damager.getGameMode() != GameMode.SURVIVAL) { return; }
+
 
             gpDamager.addKill();
             gpDamagee.removeLife();

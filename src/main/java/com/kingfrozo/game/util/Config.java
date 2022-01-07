@@ -19,9 +19,9 @@ public class Config {
     public static int z_top = arenaZ + z_offset;
     public static int z_bottom = arenaZ - z_offset;
 
-    public static int respawnX = 306;
-    public static int respawnY = 141;
-    public static int respawnZ = -249;
+    public static double respawnX = 339.5;
+    public static double respawnY = 187.0;
+    public static double respawnZ = -248.5;
     public static String respawnDir = "west";
 
 }
