@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerRecipeDiscoverEvent;
-
+//test
 public class GamePlayer {
     public static enum Type {
         PLAYER,
