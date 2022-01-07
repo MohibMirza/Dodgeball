@@ -42,8 +42,8 @@ public class GamePlayer {
         return lives;
     }
 
-    public Type getType() {
-        return type;
+    public boolean isPlayer() {
+        return (type == Type.PLAYER);
     }
 
     public Team getTeam() { return team; }
