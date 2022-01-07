@@ -28,16 +28,6 @@ public class Game implements Listener {
         started = false;
     }
 
-    @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
-        players.put(event.getPlayer().getName(), new GamePlayer(event.getPlayer()));
-    }
-
-    @EventHandler
-    public void onLeave(PlayerQuitEvent event) {
-        players.remove(event.getPlayer().getName());
-    }
-
     public Map<String, GamePlayer> getPlayers() {
         return players;
     }
