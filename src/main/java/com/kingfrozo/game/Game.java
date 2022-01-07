@@ -28,7 +28,5 @@ public class Game implements Listener {
         started = false;
     }
 
-    public Map<String, GamePlayer> getPlayers() {
-        return players;
-    }
+
 }

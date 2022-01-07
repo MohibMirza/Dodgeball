@@ -13,7 +13,7 @@ public class SpectatorHandler implements Listener {
     public void onItemPickup(EntityPickupItemEvent event) {
         if(event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
-            GamePlayer gPlayer = Game.game.getPlayers().get(player.getName());
+            GamePlayer gPlayer = GamePlayerJoinLeaveHandler.gamePlayers.get(player.getName());
             if(gPlayer.getType() == GamePlayer.Type.SPECTATOR) {
                 event.setCancelled(true);
             }
@@ -24,7 +24,7 @@ public class SpectatorHandler implements Listener {
     public void onDamage(EntityDamageByEntityEvent event) {
         if(event.getDamager() instanceof Player) {
             Player player = (Player) event.getDamager();
-            GamePlayer gPlayer = Game.game.getPlayers().get(player.getName());
+            GamePlayer gPlayer = GamePlayerJoinLeaveHandler.gamePlayers.get(player.getName());
             if(gPlayer.getType() == GamePlayer.Type.SPECTATOR) {
                 event.setCancelled(true);
             }
