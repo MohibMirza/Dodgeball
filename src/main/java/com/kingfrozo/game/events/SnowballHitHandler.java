@@ -1,7 +1,10 @@
 package com.kingfrozo.game.events;
 
 import com.kingfrozo.game.GamePlayer;
+import com.kingfrozo.game.Main;
 import com.kingfrozo.game.util.Config;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,15 +13,18 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.util.Vector;
 
-import java.util.Map;
+import java.util.*;
 
 public class SnowballHitHandler implements Listener {
 
     public static int count = 0;
     private Map<String, GamePlayer> gamePlayers = GamePlayerJoinLeaveHandler.gamePlayers;
+
 
     // TODO: add some code to respawn dodgeballs when players are hit
     @EventHandler(priority = EventPriority.LOW)
@@ -38,6 +44,7 @@ public class SnowballHitHandler implements Listener {
     }
 
     // TODO: Spawn snowball in place of player
+    // TODO: SPECTATORS DONT APPLY TO THIS
     @EventHandler(priority = EventPriority.HIGH)
     public void onHit(ProjectileHitEvent event) {
 
@@ -48,6 +55,8 @@ public class SnowballHitHandler implements Listener {
 
             Player damager = (Player) event.getEntity().getShooter();
             Player damagee = (Player) event.getHitEntity();
+            Snowball snowball = (Snowball) event.getEntity();
+
             GamePlayer gpDamager = gamePlayers.get(damager.getName());
             GamePlayer gpDamagee = gamePlayers.get(damagee.getName());
             //snowball stops flying once it hits player
@@ -62,8 +71,15 @@ public class SnowballHitHandler implements Listener {
             gpDamagee.removeLife();
 
             System.out.println(damager.getName() + " kills: " + gpDamager.getKills() );
-            System.out.println(damagee.getName() + " dealths: " + gpDamagee.getLives());
+            System.out.println(damagee.getName() + " deaths: " + gpDamagee.getLives());
 
+            Location respawnRoom = new Location(damagee.getWorld(), Config.respawnX, Config.respawnY, Config.respawnZ);
+
+            die(damagee, respawnRoom);
+
+            Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), () -> {
+                respawn(damagee);
+            }, 60);
             dropSnowball(event.getHitEntity().getLocation());
 
         }
@@ -113,5 +129,39 @@ public class SnowballHitHandler implements Listener {
         player.teleport(loc);
     }
 
+    public static void die(Player player, Location respawnRoom) {
+        player.teleport(respawnRoom);
+        player.setFlySpeed(0.0f);
+        player.setWalkSpeed(0.0f);
+        player.getInventory().clear(); // TODO: REGEN CLEARED SNOWBALLS
+    }
+
+
+    public static void respawn(Player player) {
+
+        GamePlayer gPlayer = GamePlayerJoinLeaveHandler.gamePlayers.get(player.getName());
+        boolean isRed = gPlayer.getTeam() == GamePlayer.Team.RED;
+
+        Random random = new Random(System.currentTimeMillis());
+
+        double xoffset = random.nextInt(29)-14;
+
+        double zoffset = random.nextInt(5)+6; // gen a random no. from 4-10
+
+        double respawnX = Config.arenaX - xoffset;
+        double respawnY = Config.arenaY;
+        double respawnZ;
+        if(gPlayer.getTeam() == GamePlayer.Team.RED) {
+            respawnZ = Config.arenaZ + zoffset;
+        }else {
+            respawnZ = Config.arenaZ - zoffset;
+        }
+
+        Location loc = new Location(player.getWorld(), respawnX, respawnY, respawnZ);
+
+        player.setFlySpeed(0.2f);
+        player.setWalkSpeed(0.2f);
+        player.teleport(loc);
+    }
 
 }

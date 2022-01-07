@@ -7,6 +7,7 @@ import org.redisson.api.RBucket;
 import org.redisson.api.RLiveObjectService;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class Test {
 
@@ -15,11 +16,7 @@ public class Test {
     // THEM INTO BUKKIT COMMANDS EVENTS
 
     public static void main(String[] args) throws IOException {
-        RedisClient redis = new RedisClient("redis://127.0.0.1:6379");
-        // redis.loadConfig("config.yml");
-        redis.start();
 
-        RLiveObjectService service = redis.redisson.getLiveObjectService();
 
 //        if(!service.isClassRegistered(RPlayer.class)) {
 //            System.out.println("RPlayer not registered to Redisson RLO!");
@@ -37,14 +34,28 @@ public class Test {
 
         // System.out.println(jack.getTitle());
 
-        RPlayer xShambles = service.get(RPlayer.class, "90e937fa-462d-3b31-9a52-f4384ab79c51");
-        if(xShambles == null) System.out.println("xshambles not found");
-        xShambles.setTitle("splashy");
-        System.out.println(xShambles.getInv());
-        RBucket<String> bucket = redis.redisson.getBucket("test");
-        bucket.set("tester");
-        System.out.println(bucket.get());
+        ///////
+//        RedisClient redis = new RedisClient("redis://127.0.0.1:6379");
+//        // redis.loadConfig("config.yml");
+//        redis.start();
+//
+//        RLiveObjectService service = redis.redisson.getLiveObjectService();
+//
+//        RPlayer xShambles = service.get(RPlayer.class, "90e937fa-462d-3b31-9a52-f4384ab79c51");
+//        if(xShambles == null) System.out.println("xshambles not found");
+//        xShambles.setTitle("splashy");
+//        System.out.println(xShambles.getInv());
+//        RBucket<String> bucket = redis.redisson.getBucket("test");
+//        bucket.set("tester");
+//        System.out.println(bucket.get());
+//
+//        redis.shutdown();
+        /////////
 
-        redis.shutdown();
+        Random random = new Random(System.currentTimeMillis());
+
+        for(int i =0; i < 100; i++ )
+            System.out.println(random.nextInt(29)-14); // gen a random no. from 4-10
     }
+
 }

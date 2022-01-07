@@ -56,6 +56,8 @@ public class GamePlayer {
         return participated;
     }
 
+    public Player getPlayer() { return player; }
+
     public void addKill() {
         this.kills += 1;
     }
