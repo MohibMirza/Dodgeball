@@ -13,7 +13,6 @@ public class Game implements Listener {
     public static Game game;
     public static GameLoop gameLoop;
 
-    private Map<String, GamePlayer> players;
     public boolean started;
 
     public Game() {
@@ -24,7 +23,6 @@ public class Game implements Listener {
             // create GameLoop
         }
 
-        players = new HashMap<String, GamePlayer>();
         started = false;
     }
 

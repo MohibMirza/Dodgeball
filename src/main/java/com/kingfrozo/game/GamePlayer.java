@@ -30,7 +30,7 @@ public class GamePlayer {
         team = Team.RED;
         kills = 0;
         type = (Game.game.started) ? Type.SPECTATOR : Type.PLAYER;
-        lives = (Game.game.started) ? 3 : 0;
+        lives = (Game.game.started) ? 0 : 3;
         participated = (type == Type.PLAYER);
     }
 

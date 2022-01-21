@@ -1,31 +1,29 @@
 package com.kingfrozo.game.events;
 
 import com.kingfrozo.game.GamePlayer;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Snowball;
+import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class GamePlayerJoinLeaveHandler implements Listener {
 
-    public static Map<String, GamePlayer> gamePlayers = new HashMap<String, GamePlayer>();
+    public static Map<String, GamePlayer> gamePlayers = new HashMap<>();
 
     @EventHandler
     public void createPlayer(PlayerLoginEvent event){
         GamePlayer gp = new GamePlayer(event.getPlayer());
         gamePlayers.put(event.getPlayer().getName(), gp);
+    }
 
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        event.getPlayer().setGameMode(GameMode.SURVIVAL);
     }
 
     @EventHandler

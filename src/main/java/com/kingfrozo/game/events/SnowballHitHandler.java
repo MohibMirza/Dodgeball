@@ -22,6 +22,7 @@ import java.util.*;
 
 public class SnowballHitHandler implements Listener {
 
+    public static Main plugin = Main.getPlugin();
     public static int count = 0;
     private Map<String, GamePlayer> gamePlayers = GamePlayerJoinLeaveHandler.gamePlayers;
 
@@ -71,16 +72,21 @@ public class SnowballHitHandler implements Listener {
             gpDamagee.removeLife();
 
             System.out.println(damager.getName() + " kills: " + gpDamager.getKills() );
-            System.out.println(damagee.getName() + " deaths: " + gpDamagee.getLives());
+            System.out.println(damagee.getName() + " lives: " + gpDamagee.getLives());
 
-            Location respawnRoom = new Location(damagee.getWorld(), Config.respawnX, Config.respawnY, Config.respawnZ);
+            if(gpDamagee.getLives() == 0) {
+                lose(damagee);
 
-            die(damagee, respawnRoom);
+            }else {
+                Location respawnRoom = new Location(damagee.getWorld(), Config.respawnX, Config.respawnY, Config.respawnZ);
 
-            Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), () -> {
-                respawn(damagee);
-            }, 60);
-            dropSnowball(event.getHitEntity().getLocation());
+                die(damagee, respawnRoom);
+
+                Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), () -> {
+                    respawn(damagee);
+                }, 60);
+                dropSnowball(event.getHitEntity().getLocation());
+            }
 
         }
     }
@@ -130,7 +136,13 @@ public class SnowballHitHandler implements Listener {
     }
 
     public static void die(Player player, Location respawnRoom) {
+
+
+
+        respawnRoom.setYaw(-180);
+        respawnRoom.setPitch(90);
         player.teleport(respawnRoom);
+        player.setGameMode(GameMode.SPECTATOR);
         player.setFlySpeed(0.0f);
         player.setWalkSpeed(0.0f);
         player.getInventory().clear(); // TODO: REGEN CLEARED SNOWBALLS
@@ -158,10 +170,31 @@ public class SnowballHitHandler implements Listener {
         }
 
         Location loc = new Location(player.getWorld(), respawnX, respawnY, respawnZ);
-
+        player.setGameMode(GameMode.SURVIVAL);
         player.setFlySpeed(0.2f);
         player.setWalkSpeed(0.2f);
+
+        if(gPlayer.getTeam() == GamePlayer.Team.RED) {
+            loc.setYaw(180);
+            loc.setPitch(0);
+        }
+        player.setGameMode(GameMode.SURVIVAL);
         player.teleport(loc);
+
+    }
+
+    public void lose(Player player) {
+        player.setGameMode(GameMode.CREATIVE);
+
+        for(Player otherPlayer : Bukkit.getOnlinePlayers()) {
+            otherPlayer.hidePlayer(plugin, player);
+        }
+
+        gamePlayers.get(player.getName()).setType(GamePlayer.Type.SPECTATOR);
+
+        player.getInventory().clear();
+
+        return;
     }
 
 }
