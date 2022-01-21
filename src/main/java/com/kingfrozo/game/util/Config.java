@@ -21,7 +21,7 @@ public class Config {
 
     public static double respawnX = 339.5;
     public static double respawnY = 187.0;
-    public static double respawnZ = -248.5;
+    public static double respawnZ = -245.5;
     public static String respawnDir = "west";
 
 }
